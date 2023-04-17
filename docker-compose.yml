@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  sql-client:
+    build: sql-client/.
+    command: bin/sql-client.sh
+    depends_on:
+      - jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        rest.address: jobmanager
+  jobmanager:
+    build: sql-client/.
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    volumes:
+      - /tmp/flink-checkpoints:/tmp/flink-checkpoints
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        state.backend: filesystem
+        state.checkpoints.dir: file:///tmp/flink-checkpoints
+        heartbeat.interval: 1000
+        heartbeat.timeout: 5000
+        rest.flamegraph.enabled: true
+        web.backpressure.refresh-interval: 10000
+  taskmanager:
+    build: sql-client/.
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    volumes:
+      - /tmp/flink-checkpoints-directory:/tmp/flink-checkpoints
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 3
+        state.backend: filesystem
+        state.checkpoints.dir: file:///tmp/flink-checkpoints
+        heartbeat.interval: 1000
+        heartbeat.timeout: 5000
