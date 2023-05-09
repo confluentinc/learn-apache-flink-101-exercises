@@ -16,7 +16,7 @@ services:
       - "8081:8081"
     command: jobmanager
     volumes:
-      - /tmp/flink-checkpoints:/tmp/flink-checkpoints
+      - flink_data:/tmp/
     environment:
       - |
         FLINK_PROPERTIES=
@@ -33,7 +33,7 @@ services:
       - jobmanager
     command: taskmanager
     volumes:
-      - /tmp/flink-checkpoints-directory:/tmp/flink-checkpoints
+      - flink_data:/tmp/
     environment:
       - |
         FLINK_PROPERTIES=
@@ -43,3 +43,5 @@ services:
         state.checkpoints.dir: file:///tmp/flink-checkpoints
         heartbeat.interval: 1000
         heartbeat.timeout: 5000
+volumes:
+  flink_data:

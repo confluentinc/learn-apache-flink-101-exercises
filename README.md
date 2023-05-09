@@ -8,13 +8,7 @@ The code in this repo uses Docker Compose to start up a small Flink cluster and 
 
 ## How to get it running
 
-You'll need to create the checkpoint directory before starting the containers:
-
-```bash
-mkdir -p /tmp/flink-checkpoints
-```
-
-Then build the image and start all of the containers:
+First build the image and start all of the containers:
 
 ```bash
 docker compose up --build -d
@@ -26,4 +20,4 @@ Once the containers are running,
 docker compose run sql-client
 ```
 
-will drop you into the Flink SQL Client, where you can play with Flink SQL.
+will drop you into the Flink SQL Client, where you can interact with Flink SQL.
