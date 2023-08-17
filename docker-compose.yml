@@ -3,6 +3,8 @@ services:
   sql-client:
     build: sql-client/.
     command: bin/sql-client.sh
+    volumes:
+      - flink_data:/tmp/
     depends_on:
       - jobmanager
     environment:
