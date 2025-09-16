@@ -19,6 +19,7 @@ services:
 
   kcat:
     image: edenhill/kcat:1.7.1
+    platform: linux/amd64
     container_name: kcat
     entrypoint:
       - /bin/sh
