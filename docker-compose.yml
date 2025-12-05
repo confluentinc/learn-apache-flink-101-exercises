@@ -42,7 +42,7 @@ services:
   jobmanager:
     build: .
     ports:
-      - "8081:8081"
+      - "127.0.0.1:8081:8081"
     command: jobmanager
     volumes:
       - flink_data:/tmp/
