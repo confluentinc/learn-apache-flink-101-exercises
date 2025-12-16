@@ -33,6 +33,7 @@ services:
     command: bin/sql-client.sh
     depends_on:
       - jobmanager
+      - taskmanager
     environment:
       - |
         FLINK_PROPERTIES=
